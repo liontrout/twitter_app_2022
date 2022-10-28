@@ -27,7 +27,7 @@ function Home({userObj}) {
       collection(db, "tweets"),
       orderBy("createAt", "desc")
     );
-    onSnapshot(q, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = [];
       querySnapshot.forEach((doc) => {
         // newArray.push(doc.data());

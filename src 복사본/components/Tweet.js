@@ -34,7 +34,7 @@ function Tweet({tweetObj, isOwner}) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // console.log(tweetObj.id, newTweet);
+    console.log(tweetObj.id, newTweet);
     const newTweetRef = doc(db, "tweets", `/${tweetObj.id}`);
     await updateDoc(newTweetRef, {
       text: newTweet,
