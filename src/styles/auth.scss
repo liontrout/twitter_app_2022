@@ -1,0 +1,19 @@
+.authContainer{
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  height: 100vh;
+  .authBtns{
+    display: flex; justify-content: space-between;
+    width: 100%; max-width: 320px;
+    .authBtn{
+      width: 150px;
+      background-color: #fff;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 50px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  }
+}

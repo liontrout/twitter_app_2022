@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { authService, db, storage } from "fbase";
-import { addDoc, collection, query, getDocs, where, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import Tweet from '../components/Tweet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'styles/profiles.scss';
 
 function Profiles({userObj}) {
   const [tweets, setTweets] = useState([]);
   const navigate = useNavigate();
-  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [newDisplayName, setNewDisplayName] = useState("");
   const [attachment, setAttachment] = useState("");
 
   const OnLogOutClick = () => {
     authService.signOut();
     navigate('/');
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -74,23 +77,29 @@ function Profiles({userObj}) {
     reader.readAsDataURL(theFile);
   }
 
-  const onClearAttachment = () => {
-    setAttachment("");
-  }
+  const onClearAttachment = () => setAttachment("");
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Display Name" onChange={onChange} value={newDisplayName} required/>
-        <input type="file" accept="image/*" onChange={onFileChange} />{attachment && (
-        <div>
-          <img src={attachment} width="50" height="50" />
-          <button onClick={onClearAttachment}>Clear</button>
-        </div>
+    <div className='container'>
+      <form onSubmit={onSubmit} className='profileForm'>
+        <input type="text" placeholder="Display Name" onChange={onChange} value={newDisplayName} required className='formInput' />
+        <label htmlFor='attach-file' className='profileInput__label'>
+          <span>Edit Photos</span>
+          <FontAwesomeIcon icon="fa-solid fa-plus" />
+        </label>
+        <input type="file" accept="image/*" onChange={onFileChange} id='attach-file' style={{opacity: 0}} />
+        {attachment && (
+          <div className='profileForm__attachment'>
+            <img src={attachment} style={{backgroundImage: attachment}} />
+            <div onClick={onClearAttachment} className='profileForm__clear'>
+              <span>Clear</span>
+              <FontAwesomeIcon icon="fa-solid fa-xmark" />
+            </div>
+          </div>
         )}
-        <input type="submit" value="Edit Profile" />
+        <input type="submit" value="Edit Profile" className='formBtn' style={{marginTop: 10}} />
       </form>
-      <button onClick={OnLogOutClick}>Logout</button>
+      <span onClick={OnLogOutClick} className='formBtn cancelBtn logOut'>Logout</span>
       <div>
         {tweets.map(tweet => (
           <Tweet
@@ -100,8 +109,8 @@ function Profiles({userObj}) {
           />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
-export default Profiles
+export default Profiles;

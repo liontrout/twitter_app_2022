@@ -41,9 +41,9 @@ function Home({userObj}) {
   // console.log(tweets);
 
   return (
-    <>
+    <div className='container'>
       <TweetFactory userObj={userObj} />
-      <div>
+      <div style={{marginTop: 30}}>
         {tweets.map(tweet => (
           <Tweet
             key={tweet.id}
@@ -52,8 +52,8 @@ function Home({userObj}) {
           />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
-export default Home
+export default Home;

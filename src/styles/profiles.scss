@@ -1,0 +1,42 @@
+.container{
+  .profileForm{
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%;
+    border-bottom: 1px solid rgba($color: #fff, $alpha: 0.9);
+    padding-bottom: 30px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  .formInput{
+    margin-bottom: 20px;
+  }
+  span{
+    margin-bottom: 25px;
+  }
+  .profileInput__label{
+    color: #04aaff;
+    cursor: pointer;
+    span{
+      font-size: 12px;
+      margin-right: 5px;
+      letter-spacing: 0.5px;
+    }
+  }
+  .profileForm__attachment{
+    display: flex; flex-direction: column; justify-content: center;
+    img{
+      width: 80px; height: 80px;
+      border-radius: 40px;
+    }
+    .profileForm__clear{
+      color: #04aaff;
+      text-align: center;
+      cursor: pointer;
+      span{
+        font-size: 12px;
+        margin-right: 5px;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}

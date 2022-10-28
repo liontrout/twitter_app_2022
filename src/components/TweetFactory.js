@@ -3,6 +3,8 @@ import { db, storage } from "fbase";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'styles/tweetFactory.scss';
 
 function TweetFactory({userObj}) {
   const [tweet, setTweet] = useState("");
@@ -21,7 +23,7 @@ function TweetFactory({userObj}) {
       const storageRef = ref(storage, `${userObj.uid}/${uuidv4()}`);
       const response = await uploadString(storageRef, attachment, 'data_url');
       // console.log(response);
-      attachmentUrl = await getDownloadURL(ref(storage, response.ref))
+      attachmentUrl = await getDownloadURL(ref(storage, response.ref));
     }
 
     await addDoc(collection(db, "tweets"), {
@@ -47,23 +49,30 @@ function TweetFactory({userObj}) {
     reader.readAsDataURL(theFile);
   }
 
-  const onClearAttachment = () => {
-    setAttachment("");
-  }
+  const onClearAttachment = () => setAttachment("");
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" placeholder="What's on your mind" value={tweet} onChange={onChange} maxLength={140} required />
-      <input type="file" accept="image/*" onChange={onFileChange} /> {/* multiple을 추가하면 사진을 여러 장 첨부할 수 있다 */}
-      <input type="submit" value="Tweet" />
-      {attachment &&
-        <div>
-          <img src={attachment} width="50" height="50" />
-          <button onClick={onClearAttachment}>Clear</button>
+    <form onSubmit={onSubmit} className='factoryForm'>
+      <div className='factoryInput__container'>
+        <input type="text" placeholder="What's on your mind" value={tweet} onChange={onChange} maxLength={140} autoFocus required className='factoryInput__input' />
+        <input type="submit" value="&rarr;" className='factoryInput__arrow' />
+      </div>
+      <label htmlFor='attach-file' className='factoryInput__label'>
+        <span>Add Photos</span>
+        <FontAwesomeIcon icon="fa-solid fa-plus" />
+      </label>
+      <input type="file" accept="image/*" onChange={onFileChange} id='attach-file' style={{opacity: 0}} /> {/* multiple을 추가하면 사진을 여러 장 첨부할 수 있다 */}
+      {attachment && (
+        <div className='factoryForm__attachment'>
+          <img src={attachment} style={{backgroundImage: attachment}} />
+          <div onClick={onClearAttachment} className='factoryForm__clear'>
+            <span>Remove</span>
+            <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          </div>
         </div>
-      }
+      )}
     </form>
   )
 }
 
-export default TweetFactory
+export default TweetFactory;
