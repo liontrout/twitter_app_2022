@@ -70,7 +70,7 @@ function Tweet({tweetObj, isOwner}) {
         <>
           <h4>{tweetObj.text}</h4>
           {tweetObj.attachmentUrl && (
-            <img src={tweetObj.attachmentUrl} />
+            <img src={tweetObj.attachmentUrl} alt='' />
           )}
           <span>{nowDate}</span>
           {isOwner && (

@@ -64,7 +64,7 @@ function TweetFactory({userObj}) {
       <input type="file" accept="image/*" onChange={onFileChange} id='attach-file' style={{opacity: 0}} /> {/* multiple을 추가하면 사진을 여러 장 첨부할 수 있다 */}
       {attachment && (
         <div className='factoryForm__attachment'>
-          <img src={attachment} style={{backgroundImage: attachment}} />
+          <img src={attachment} alt='' style={{backgroundImage: attachment}} />
           <div onClick={onClearAttachment} className='factoryForm__clear'>
             <span>Remove</span>
             <FontAwesomeIcon icon="fa-solid fa-xmark" />

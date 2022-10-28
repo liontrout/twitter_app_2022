@@ -90,7 +90,7 @@ function Profiles({userObj}) {
         <input type="file" accept="image/*" onChange={onFileChange} id='attach-file' style={{opacity: 0}} />
         {attachment && (
           <div className='profileForm__attachment'>
-            <img src={attachment} style={{backgroundImage: attachment}} />
+            <img src={attachment} alt='' style={{backgroundImage: attachment}} />
             <div onClick={onClearAttachment} className='profileForm__clear'>
               <span>Clear</span>
               <FontAwesomeIcon icon="fa-solid fa-xmark" />
